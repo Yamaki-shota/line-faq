@@ -1,0 +1,8 @@
+{
+  "functions": {
+    "api/*.[jt]s": { "runtime": "edge" }
+  },
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1.ts" }
+  ]
+}
