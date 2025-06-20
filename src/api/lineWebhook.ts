@@ -10,9 +10,9 @@ const client = new Client(cfg);
 const app = new Hono();
 
 // 署名検証（Node ミドルウェア → Hono 変換）
-app.use('/callback', fromNodeMiddleware(middleware(cfg)));
+app.use('*', fromNodeMiddleware(middleware(cfg)));
 
-app.post('/callback', async (c) => {
+app.post('/', async (c) => {
   const body: any = await c.req.json();
   for (const ev of body.events) {
     if (ev.type === 'message' && ev.message.type === 'text') {
