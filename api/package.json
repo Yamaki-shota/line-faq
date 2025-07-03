@@ -1,7 +1,0 @@
-{
-  "type": "module",
-  "dependencies": {
-    "hono": "^3.13.2",
-    "@line/bot-sdk": "^8.4.0"
-  }
-}
