@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import { middleware, Client } from '@line/bot-sdk';
-import { fromNodeMiddleware } from 'hono/node';
+import { fromNodeMiddleware } from 'hono/adapter/node';
 
 const cfg = {
   channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN!,
