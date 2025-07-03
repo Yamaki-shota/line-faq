@@ -9,11 +9,16 @@ const cfg = {
 const client = new Client(cfg);
 const app = new Hono();
 
-// 署名検証（Node ミドルウェア → Hono 変換）
+// 署名検証（LINE 署名 → Hono 変換）
 app.use('*', fromNodeMiddleware(middleware(cfg)));
 
-app.post('/', async (c) => {
+// Verify 用（GET）
+app.get('/', (c) => c.text('ok'));               // ★修正
+
+// 本処理（POST）
+app.post('/', async (c) => {                      // ★修正
   const body: any = await c.req.json();
+
   for (const ev of body.events) {
     if (ev.type === 'message' && ev.message.type === 'text') {
       const query = ev.message.text;
@@ -38,7 +43,8 @@ app.post('/', async (c) => {
       });
     }
   }
+
   return c.json({ status: 'ok' });
-});
+});                                               // ★修正：ここで app.post を閉じる
 
 export default app;
